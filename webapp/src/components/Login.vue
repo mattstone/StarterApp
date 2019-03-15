@@ -52,9 +52,11 @@ export default {
   methods: {
     login: function () {
       this.error = ''
-      let email = this.email
-      let password = this.password
-      this.$store.dispatch('login', { email, password })
+      const email = this.email
+      const password = this.password
+
+      // this.$store.dispatch('login', { user: { email: email, password: password } })
+      this.$store.dispatch('login', { email: email, password: password })
       .then(() => {
         this.$router.push('/dashboard')
       })

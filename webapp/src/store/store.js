@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
+import User from '../../models/User.js'
+
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
@@ -37,7 +39,7 @@ export const store = new Vuex.Store({
     login ({commit}, user) {
       return new Promise((resolve, reject) => {
         commit('auth_request')
-        axios({url: 'http://localhost:4000/login', data: user, method: 'POST'})
+        axios({url: 'http://localhost:4000/login', data: { user: user }, method: 'POST'})
         .then(resp => {
           if (resp.status !== 200) {
             commit('auth_error', 'Unable to connect')
@@ -52,7 +54,9 @@ export const store = new Vuex.Store({
           }
 
           const token = resp.data.token
-          const user = resp.data.user
+          const userJSON = resp.data.user
+          const user = new User(userJSON)
+
           localStorage.setItem('token', token)
           axios.defaults.headers.common['Authorization'] = token
           commit('auth_success', token, user)
@@ -73,6 +77,7 @@ export const store = new Vuex.Store({
           const token = resp.data.token
           const user = resp.data.user
           localStorage.setItem('token', token)
+          localStorage.setItem('user', user)
           axios.defaults.headers.common['Authorization'] = token
           commit('auth_success', token, user)
           resolve(resp)
@@ -111,15 +116,22 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit('logout')
         localStorage.removeItem('token')
-        if (axios.defaults.headers.commit['Authorization']) {
-          delete axios.defaults.headers.commit['Authorization']
-        }
+        console.log(axios)
+        console.log(axios.defaults)
+        console.log(axios.defaults.headers)
+        console.log(axios.defaults.headers.common.Authorization)
+        delete axios.defaults.headers.common.Authorization
+        console.log(axios.defaults.headers.common.Authorization)
+        // if (axios.defaults.headers.commit['Authorization']) {
+        //   delete axios.defaults.headers.commit['Authorization']
+        // }
         resolve()
       })
     }
   },
   getters: {
     isLoggedIn: state => !!state.token,
+    user: state => state.user,
     authStatus: state => state.status
   }
 })

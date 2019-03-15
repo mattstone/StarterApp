@@ -1,5 +1,5 @@
 config =
-  appName: "TestNodeRESTAPI"
+  appName: "startapp"
   port: 4000
   appEndPoint: "http://localhost"
   apiEndPoint: "http://localhost/api/rest"
