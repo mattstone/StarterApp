@@ -63,8 +63,11 @@
       </div>
 
     </div>
-    <hr>
     <br>
+    <template>
+      <Footer/>
+    </template>
+
   </div>
 
 </template>
@@ -72,11 +75,13 @@
 <script>
 
 import NavBar from './NavBar'
+import Footer from './Footer'
 
 export default {
   name: 'HomePage',
   components: {
-    NavBar
+    NavBar,
+    Footer
   },
   methods: {
     gotoRegister: function () {

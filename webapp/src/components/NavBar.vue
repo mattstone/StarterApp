@@ -22,8 +22,7 @@
 export default {
   name: 'NavBar',
   computed: {
-    isLoggedIn: function () { return this.$store.getters.isLoggedIn },
-    isAdmin: function () { return this.$store.getters.isAdmin }
+    isLoggedIn: function () { return this.$store.getters.isLoggedIn }
   },
   data () {
     return {
@@ -37,7 +36,11 @@ export default {
       let password = this.password
       this.$store.dispatch('login', { email: email, password: password })
       .then(() => {
-        this.$router.push('/dashboard')
+        if (this.$store.getters.user.isAdmin()) {
+          this.$router.push({ name: 'admin_dashboard' })
+        } else {
+          this.$router.push({ name: 'user_dashboard' })
+        }
       })
       .catch(err => {
         console.log(err)

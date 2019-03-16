@@ -11,15 +11,17 @@ export const store = new Vuex.Store({
     status: '',
     error: '',
     token: localStorage.getItem('token') || '',
-    user: {}
+    user: null
   },
   mutations: {
     auth_request (state) {
       state.status = 'loading'
     },
-    auth_success (state, token, user) {
+    auth_success (state, token) {
       state.status = 'success'
       state.token = token
+    },
+    set_user (state, user) {
       state.user = user
     },
     auth_error (state, error) {
@@ -33,6 +35,7 @@ export const store = new Vuex.Store({
       state.status = ''
       state.token = ''
       state.error = ''
+      state.user = null
     }
   },
   actions: {
@@ -58,8 +61,10 @@ export const store = new Vuex.Store({
           const user = new User(userJSON)
 
           localStorage.setItem('token', token)
+          localStorage.setItem('user', user)
           axios.defaults.headers.common['Authorization'] = token
-          commit('auth_success', token, user)
+          commit('auth_success', token)
+          commit('set_user', user)
           resolve(resp)
         })
         .catch(err => {
@@ -116,15 +121,7 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit('logout')
         localStorage.removeItem('token')
-        console.log(axios)
-        console.log(axios.defaults)
-        console.log(axios.defaults.headers)
-        console.log(axios.defaults.headers.common.Authorization)
         delete axios.defaults.headers.common.Authorization
-        console.log(axios.defaults.headers.common.Authorization)
-        // if (axios.defaults.headers.commit['Authorization']) {
-        //   delete axios.defaults.headers.commit['Authorization']
-        // }
         resolve()
       })
     }

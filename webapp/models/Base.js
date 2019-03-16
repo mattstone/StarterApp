@@ -9,7 +9,7 @@ get api host from config  - switch on NODE_ENV for dev, test, prod
 
 // TODO: apiUrl should come from config..
 class Base {
-  constructor(restPath, model) {
+  constructor(restPath) {
     this.axios    = axios
     this.apiUrl   = "http://localhost:4000" // TODO import from config..
     this.restPath = restPath

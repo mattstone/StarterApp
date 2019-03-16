@@ -8,7 +8,8 @@ import Register from '@/components/Register'
 import RegisterSuccessfull from '@/components/RegisterSuccessfull'
 import ResendConfirmationEmail from '@/components/ResendConfirmationEmail'
 import ResetPassword from '@/components/ResetPassword'
-import Dashboard from '@/components/Dashboard'
+import AdminDashboard from '@/components/admin/Dashboard'
+import UserDashboard from '@/components/user/Dashboard'
 
 Vue.use(Router)
 
@@ -21,7 +22,8 @@ let router = new Router({
     { path: '/register-success', name: 'RegisterSuccessfull', component: RegisterSuccessfull },
     { path: '/resend-confirmation-email', name: 'ResendConfirmationEmail', component: ResendConfirmationEmail },
     { path: '/reset-password', name: 'ResetPassword', component: ResetPassword },
-    { path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: { requiresAuth: true } },
+    { path: '/admin/dashboard', name: 'admin_dashboard', component: AdminDashboard, meta: { requiresAuth: true } },
+    { path: '/user/dashboard', name: 'user_dashboard', component: UserDashboard, meta: { requiresAuth: true } },
     { path: '*', redirect: '/' }
   ]
 })

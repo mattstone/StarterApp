@@ -58,7 +58,11 @@ export default {
       // this.$store.dispatch('login', { user: { email: email, password: password } })
       this.$store.dispatch('login', { email: email, password: password })
       .then(() => {
-        this.$router.push('/dashboard')
+        if (this.$store.getters.user.isAdmin()) {
+          this.$router.push({ name: 'admin_dashboard' })
+        } else {
+          this.$router.push({ name: 'user_dashboard' })
+        }
       })
       .catch(err => {
         this.error = err

@@ -52,7 +52,7 @@ User.methods.toJSON = () ->   # do not send secret data via api
   user = this.toObject()
   delete user.salt
   delete user.hash
-  delete user.permission
+  #delete user.permission
   user
 
 User.methods.setPassword = (password) ->

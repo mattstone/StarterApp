@@ -20,6 +20,7 @@ query =
   email: "admin@starterapp.com"
   password: "P4ssw0rd!"
   permission: app.config.permissionLevels.ADMIN
+
 app.models.User.create query, (err, admin) ->
   if err?
     console.log "admin@starterapp.com not created"
@@ -38,26 +39,3 @@ app.models.User.create query, (err, user) ->
   else if user?
     user.confirmUser()
     console.log "user@starterapp.com created"
-
-
-###
-adminUser =
-  email: "admin@starterapp.com"
-  password: "P4ssw0rd!"
-app.models.User.create adminUser, (err, admin) ->
-  if err? or !admin?
-    console.log "Error: unable to create Admin user: #{err}"
-  else
-    admin.confirmUser()
-    console.log "Admin user created"
-
-user =
-  email: "user@starterapp.com"
-  password: "P4ssw0rd!"
-app.models.User.create user, (err, user) ->
-  if err? or !user?
-    console.log "Error: unable to create user: #{err}"
-  else
-    user.confirmUser()
-    console.log "User created"
-###
