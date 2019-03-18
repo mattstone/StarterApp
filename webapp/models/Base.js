@@ -16,6 +16,9 @@ class Base {
     this.restUrl  = this.apiUrl + restPath
     this.version  = 1
     this.errors   = []
+
+    this.offset   = 0
+    this.limit    = 20
   }
 
   // REST API

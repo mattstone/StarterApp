@@ -58,6 +58,7 @@
     "request": "*",
     "socket.io": "*",
     "socket.io-client": "*",
+    "typeof": "^1.0.0",
     "sync-request": "^4.0.2",
     "validator": "*"
   },

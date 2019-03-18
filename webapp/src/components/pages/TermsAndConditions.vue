@@ -15,17 +15,23 @@
       <li>Condition two</li>
     </ol>
 
+    <template>
+      <Footer/>
+    </template>
+
   </div>
 </template>
 
 <script>
 
-import NavBar from './NavBar'
+import NavBar from '../NavBar'
+import Footer from '../Footer'
 
 export default {
-  name: 'Login',
+  name: 'TermsAndConditions',
   components: {
     NavBar,
+    Footer
   }
 }
 </script>

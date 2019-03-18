@@ -16,7 +16,7 @@
 import NavBar from '../NavBar'
 
 export default {
-  name: 'User Dashboard',
+  name: 'user_dashboard',
   components: {
     NavBar
   }

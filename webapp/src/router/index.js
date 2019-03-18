@@ -8,8 +8,13 @@ import Register from '@/components/Register'
 import RegisterSuccessfull from '@/components/RegisterSuccessfull'
 import ResendConfirmationEmail from '@/components/ResendConfirmationEmail'
 import ResetPassword from '@/components/ResetPassword'
-import AdminDashboard from '@/components/admin/Dashboard'
 import UserDashboard from '@/components/user/Dashboard'
+import TermsAndConditions from '@/components/pages/TermsAndConditions'
+import PrivacyPolicy from '@/components/pages/PrivacyPolicy'
+import FAQs from '@/components/pages/FAQs'
+import Contact from '@/components/pages/Contact'
+import AdminDashboard from '@/components/admin/Dashboard'
+import NotFound from '@/components/error-pages/NotFound'
 
 Vue.use(Router)
 
@@ -17,6 +22,10 @@ let router = new Router({
   mode: 'history',
   routes: [
     { path: '/', name: 'HomePage', component: HomePage },
+    { path: '/terms-and-conditions', name: 'terms_and_conditions', component: TermsAndConditions },
+    { path: '/privacy-policy', name: 'privacy_policy', component: PrivacyPolicy },
+    { path: '/frequently-asked-questions', name: 'frequently_asked_questions', component: FAQs },
+    { path: '/contact', name: 'contact', component: Contact },
     { path: '/Login', name: 'Login', component: Login },
     { path: '/register', name: 'Register', component: Register },
     { path: '/register-success', name: 'RegisterSuccessfull', component: RegisterSuccessfull },
@@ -24,7 +33,8 @@ let router = new Router({
     { path: '/reset-password', name: 'ResetPassword', component: ResetPassword },
     { path: '/admin/dashboard', name: 'admin_dashboard', component: AdminDashboard, meta: { requiresAuth: true } },
     { path: '/user/dashboard', name: 'user_dashboard', component: UserDashboard, meta: { requiresAuth: true } },
-    { path: '*', redirect: '/' }
+    { path: '*', name: 'NotFound', component: NotFound }
+    // { path: '*', redirect: '/' }
   ]
 })
 

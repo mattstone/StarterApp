@@ -19,9 +19,7 @@ app.mongoose.connect app.config.mongodb.uri, { useNewUrlParser: true }
 RedisManager = require './lib/RedisManager'
 app.r = new RedisManager app
 
-#
-# load models
-app.models = app.helpers.loadModels app
+app.models = app.helpers.loadModels app # load models
 
-#
 require('./lib/httpServer.coffee')(app) # load web server
+require('./lib/socketServer')(app)      # load socket server

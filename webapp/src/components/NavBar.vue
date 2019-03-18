@@ -3,6 +3,7 @@
     <a class="navbar-brand" href="/">Starter App</a>
 
     <template v-if="isLoggedIn">
+      <b-navbar-brand :to="{ name: 'AdminDashboard' }">Admin</b-navbar-brand>
       <a @click='logout' class='text-light'>Logout</a>
     </template>
     <template v-else>
@@ -22,7 +23,8 @@
 export default {
   name: 'NavBar',
   computed: {
-    isLoggedIn: function () { return this.$store.getters.isLoggedIn }
+    isLoggedIn: function () { return this.$store.getters.isLoggedIn },
+    isAdmin: function () { return this.$store.getters.user.isAdmin() }
   },
   data () {
     return {

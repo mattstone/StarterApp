@@ -20,6 +20,7 @@
     "bootstrap-vue": "latest",
     "es6-promise": "^4.2.5",
     "fs": "0.0.1-security",
+    "gasp": "0.0.2",
     "jquery": "^3.0.0",
     "net": "^1.0.2",
     "popper.js": "^1.12.9",
