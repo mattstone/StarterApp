@@ -43,11 +43,11 @@ module.exports = (app) ->
     socket.apiMethods ?= []
 
     setApis = ->
-      #setApi socket, 'alphavantage'
+      setApi socket, 'user'
 
-      # if socket.user.isAdmin
-      #   setApi socket, 'admin'
-      #   socket.join "admins"
+      if socket.user.isAdmin
+        setApi socket, 'admin'
+        socket.join "admins"
 
     if socket.user?
       setApis()

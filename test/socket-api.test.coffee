@@ -101,3 +101,12 @@ describe 'Socket.io API', ->
           user._id.should.be.equal user_id
           user.email.should.be.equal user_email
           done()
+
+  describe 'User', ->
+    it 'should getUser for a current user', (done) ->
+      socket.emit 'apiCall', 'getUser', (err, userData) ->
+        should.not.exist err
+        userData.should.be.an('object')
+        userData.email.should.be.equal user.email
+        done()
+          
