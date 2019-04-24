@@ -22,5 +22,4 @@ export default {
     errors: { type: Array, default: null }
   }
 }
-
 </script>

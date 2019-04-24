@@ -2,13 +2,17 @@ util = require 'util'
 
 module.exports =
   before: (method, req, res, next) ->
+    console.log "users.before: 1"
     if method in ['create', 'destroy']
       # return res.send 403 unless req.user? and req.user.isAdmin()
       return res.send 403
+    console.log "users.before: 2"
     next()
 
   index: (req, res) ->
+    console.log "users.index: 1"
     req.dbQueryOpts.sort ?= created: -1
+    console.log "users.index: 2"
     @findAndSend req, res
 
   show: (req, res) ->

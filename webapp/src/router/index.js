@@ -14,6 +14,7 @@ import PrivacyPolicy from '@/components/pages/PrivacyPolicy'
 import FAQs from '@/components/pages/FAQs'
 import Contact from '@/components/pages/Contact'
 import AdminDashboard from '@/components/admin/Dashboard'
+import AdminUsers from '@/components/admin/operations/Users'
 import NotFound from '@/components/error-pages/NotFound'
 
 Vue.use(Router)
@@ -32,6 +33,7 @@ let router = new Router({
     { path: '/resend-confirmation-email', name: 'ResendConfirmationEmail', component: ResendConfirmationEmail },
     { path: '/reset-password', name: 'ResetPassword', component: ResetPassword },
     { path: '/admin/dashboard', name: 'admin_dashboard', component: AdminDashboard, meta: { requiresAuth: true } },
+    { path: '/admin/operations/users', name: 'admin_operations_users', component: AdminUsers, meta: { requiresAuth: true } },
     { path: '/user/dashboard', name: 'user_dashboard', component: UserDashboard, meta: { requiresAuth: true } },
     { path: '*', name: 'NotFound', component: NotFound }
     // { path: '*', redirect: '/' }

@@ -15,9 +15,10 @@ app.mongoose   = require 'mongoose'
 app.mongoose.promise = global.Promise
 app.mongoose.connect app.config.mongodb.uri, { useNewUrlParser: true }
 
-# Load Redis
+# Load libraries
 RedisManager = require './lib/RedisManager'
 app.r = new RedisManager app
+app.f   = require './lib/finance'
 
 app.models = app.helpers.loadModels app # load models
 

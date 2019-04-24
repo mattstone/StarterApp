@@ -6,10 +6,6 @@
     </template>
 
     <div class="d-flex" id="wrapper">
-      <template>
-        <Sidebar/>
-      </template>
-
       <!-- Page Content -->
       <div id="page-content-wrapper">
         <div class="container-fluid">

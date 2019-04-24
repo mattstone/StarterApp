@@ -11,7 +11,7 @@ get api host from config  - switch on NODE_ENV for dev, test, prod
 class Base {
   constructor(restPath) {
     this.axios    = axios
-    this.apiUrl   = "http://localhost:4000" // TODO import from config..
+    this.apiUrl   = "http://localhost:4000/api/rest" // TODO import from config..
     this.restPath = restPath
     this.restUrl  = this.apiUrl + restPath
     this.version  = 1
@@ -25,26 +25,31 @@ class Base {
   request(meth, params = null, version = null, cb) {
     const method = meth.toUpperCase()
 
-    const url = this.apiUrl + params.url
+    const url = params.url
+    const access_token = params.access_token
+    this.errors = [];
+
 
     if (method == 'GET') { // add parameters to url
-      string = ''
+      var string = ''
       for (let key in params) { string += key + "=" + String(params) + "&" }
       if (string != '') { params.url += "?" + string }
       params = {}
     }
 
-    headers = {
+    var headers = {
       version: version,
       'Content-Type': 'application/json; charset=UTF-8',
     }
 
-    if (access_token) { headers.access_token = params.access_token; }
+    if (access_token) { headers.access_token = access_token; }
 
     delete(params.url);
     delete(params.access_token);
 
     var response = null;
+
+    var self = this;
 
     this.axios({
       method: method,
@@ -53,24 +58,23 @@ class Base {
       headers: headers
     })
     .then((data) => {
+      console.log(data)
 
       if (data.error) {
-        errors.push(data.error);
+        self.errors.push(data.error);
       } else if (data.errors) {
-        errors = data.errors;
+        self.errors = data.errors;
       } else {
         response = data;
       }
 
     }).catch(function (error) {
-      errors.push(error);
+      self.errors.push(error);
     })
     .then(function () {
-      cb(err, response);
+      cb(self.errors, response);
     });
     /*
-
-
     req.end( (res) => {
       cb(res);
     });
@@ -78,14 +82,12 @@ class Base {
   };
 
   get(params, cb) {
-    params.url  = "/" + this.restUrl;
-    this.errors = [];
+    params.url  = this.restUrl;
 
     // handle paging
     if (!params.offset) { params.offset = 0;  }
     if (!params.limit)  { params.limit  = 20; }
-
-    this.request.get('GET', params, this.version, (err, response) => {
+    this.request('GET', params, this.version, (err, response) => {
       cb(err, response);
     });
   };
@@ -103,7 +105,7 @@ class Base {
   create(params, cb) {
     this.errors = [];
     params.url  = "/" + this.restUrl;
-    this.request.get('POST', params, this.version, (err, response) => {
+    this.request('POST', params, this.version, (err, response) => {
       cb(err, response);
     });
   };
@@ -112,7 +114,7 @@ class Base {
     this.errors = [];
     params.url  = "/" + this.restUrl + "/" + params.id + "/";
     delete(params.id);
-    this.request.get('PUT', params, this.version, (err, response) => {
+    this.request('PUT', params, this.version, (err, response) => {
       cb(err, response);
     });
   };
@@ -120,7 +122,7 @@ class Base {
   delete(id, cb) {
     this.errors = [];
     params.url  = "/" + this.restUrl + "/" + params.id + "/";
-    this.request.get('DELETE', params, this.version, (err, response) => {
+    this.request('DELETE', params, this.version, (err, response) => {
       cb(err, response);
     });
   };
